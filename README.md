@@ -26,3 +26,17 @@ Build a system where AI agents control isolated Windows sandboxes via GPU-accele
 3. Deploy models and test AI loops.
 
 Contributions welcome! See issues for known trade-offs (e.g., licensing, latency mitigation).
+
+
+# Start
+We need to make a cache folder for Hugging Face
+New-Item -ItemType Directory -Force -Path C:\Users\andre\hf-cache | Out-Null
+
+Start a long-lived, interactive dev container (no server yet)
+docker run --gpus "device=1" -it -p 8010:8000 -v C:\Users\andre\hf-cache:/root/.cache/huggingface --name glm-dev --ipc=host -e CUDA_DEVICE_ORDER=PCI_BUS_ID -e CUDA_VISIBLE_DEVICES=1 -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True --entrypoint bash vllm/vllm-openai:latest
+
+# Verify CUDA Device:
+python3 -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0))"
+
+# Remote in box
+docker exec -it glm-dev bash
