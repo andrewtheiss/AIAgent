@@ -27,6 +27,7 @@ RUN apt-get update && \
     libpci3 \
     tigervnc-standalone-server \
     tigervnc-common \
+    tigervnc-tools \
     xfonts-base \
     xfce4 \
     xfce4-goodies \

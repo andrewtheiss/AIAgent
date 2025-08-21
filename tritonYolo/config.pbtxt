@@ -1,0 +1,29 @@
+name: "yolov8"
+platform: "tensorrt_plan"
+max_batch_size: 16
+
+input [
+  {
+    name: "images"
+    data_type: TYPE_FP32
+    dims: [ 1, 3, 640, 640 ]
+  }
+]
+
+output [
+  {
+    name: "output0"
+    data_type: TYPE_FP32
+    dims: [ 1, 84, 8400 ]
+  }
+]
+
+# This section is optional inside the config if you specify the GPU in the 'docker run' command.
+# However, it can be useful for explicitly assigning a model to a specific GPU if multiple are present.
+# For this setup, we will control GPU assignment via the docker run command itself.
+instance_group [
+  {
+    count: 1
+    kind: KIND_GPU
+  }
+]
