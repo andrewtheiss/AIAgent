@@ -23,8 +23,16 @@ Pin-Priority: -1\
     libopencv-dev python3-opencv \
     python3-grpcio \
     wine64 \
-    x11-apps
+    x11-apps \
+    xdotool \
+    dbus-x11 \
+    libegl1-mesa \
+    libpci3
 
-RUN pip3 install pywinauto opencv-python grpcio tritonclient[all]
+RUN pip3 install pywinauto opencv-python grpcio tritonclient[all] mss numpy
 
-CMD ["bash"]
+COPY scripts /scripts
+
+CMD ["python3", "/scripts/agent.py"]
+
+
